@@ -12,16 +12,80 @@ header
     z-index: 99;
 }
 
-.logo{
+.containter-logo{
    
     font-size: 2em;
-    
     color: white;
     user-select: none;
     text-decoration-line: none;
     text-decoration-style: wavy;
     justify-content: center;
     font-family:Arial, Helvetica, sans-serif;
-    
-    
 }
+
+.shopping-cart{
+    background-color: #fff;
+    width: 70px;
+    height: 70px;
+    float: right;
+}
+.navigation-bar{
+    margin-top:130px;
+    background-color: black;
+    color:#fff;
+    text-decoration-style: none;
+    font-size: 20px;
+    width: 100%;
+    padding: 0;;
+
+}
+.navigation-bar a{
+    list-style: none;
+    letter-spacing: 1px;
+
+}
+ul{
+    list-style: none;
+    padding:0px;
+    margin-left: none;
+  }
+  
+  
+  ul li a{
+    
+    text-decoration: none;
+    display: block;
+    color: white;
+  }
+  
+  ul li{
+    float: left;
+    list-style: none;
+    width: 300px;
+    height: 40px;
+    background: black;
+  
+    text-align: center;
+    font-size: 20px;
+    margin-right: 0px;
+    border-radius:4px;
+  
+    line-height: 40px;
+  }
+  
+  ul li a:hover{
+    background-color:white;
+    border-radius: 10px;
+    color:#162938;    
+  }
+  
+  ul li ul li{
+    display: none;
+  }
+  
+  ul li:hover ul li{
+    display :block;
+  }
+  
+  
+  
