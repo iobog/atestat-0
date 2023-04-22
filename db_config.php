@@ -2,8 +2,8 @@
 
   $servername = "localhost";
   $username = "root";
-  $password = "";
+  $password = "Parola2019";
 
-  $database = "atestat_1";
+  $database = "atestat_0";
   $product_table_name = "produs";
   $product_image_table_name = "produs_imagine";
