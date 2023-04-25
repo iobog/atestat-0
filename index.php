@@ -19,8 +19,20 @@
     <div class="header">
       <div class="header-logo">Magazinul</div>
       <div class="header-cart">
-        <i class="fa-solid fa-bag-shopping"></i> 0 lei
+        <i class="fa-solid fa-bag-shopping" style="color: #15322f;"></i> 0 lei
       </div>
+    </div>
+    <div class="navigation">
+      <a class="navigation-buttons" href="#0">
+        <div class="">Parfumuri Dama</div>
+      </a>
+      <a class="navigation-buttons" href="#0">
+        <div class="">Parfumuri Barbati</div>
+      </a>
+      <a class="navigation-buttons" href="#0">
+        <div class="">Despre noi</div>
+      </a>
+      
     </div>
 
     <div class="product-card-container">

@@ -124,4 +124,17 @@
     }
   }
 
+  // Note: Create 'utilizator' table if not exists.
+  $create_user_table_query = "
+      CREATE TABLE IF NOT EXISTS $user_table (
+        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        email NVARCHAR(2048) NOT NULL,
+        parola NVARCHAR(2048) NOT NULL,
+        
+      )
+  ";
+
+  $conn->exec($create_user_table_query);
+
+  //Note: This function brake the connection with the database
   $conn = null;

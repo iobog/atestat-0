@@ -35,7 +35,8 @@ body {
   align-content: center;
   box-shadow: 0 1px 3px #0000002e;
   align-content: center;
-  
+  display: grid;
+  grid-template-columns: auto auto auto;
   
 }
 .navigation-buttons{
