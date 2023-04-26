@@ -1,0 +1,33 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    display: block;
+  }
+  
+  body {
+    margin: 0;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+  }
+  .wrapper{
+    margin: 0 auto;
+    width: 300;
+    height: 500;
+    padding: 10px;
+    background-color: aqua;
+    
+    text-align: center;
+    align-items: center;
+  }
+  .wrapper-title{
+    font-weight:500;
+    padding: 11px;
+    
+    text-transform: uppercase;
+    margin-bottom: 11px;
+    letter-spacing: 0.4px;
+  }

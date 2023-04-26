@@ -81,6 +81,33 @@
         "killian_good_girl_gone_bad.jpg"
       )
     ),
+    array(
+      "The Dreamer",
+      400,
+      "Parfumul apei de toaletă Dreamer marca de renume mondial Versace este destinat bărbaților care visează cu ochii deschiși. Bărbații care sunt puternici, dar în același timp nu se tem să-și dezvăluie partea lor delicată și romantică. Închideți ochii și fiți duși de visele și fanteziile voastre cu parfumul unic de apă de toaletă, care a văzut lumina lumii în 1996. În ciuda faptului că parfumul a fost pe piață de mai mult de 20 de ani, nu încetează să fascineze atât bărbații, cât și femeile cu compoziția sa unică chiar și astăzi.",
+      "Versace",
+      array(
+        "versace.jpg"
+      )
+    ),
+    array(
+      "Paris Biarritz",
+      910,
+      "Învăluiți-vă într-un parfum care se încadrează perfect în stilul dvs. și care devine rapid noua dvs. semnătură. Apa de toaletă unisex Chanel Paris Biarritz vă cucerește de la prima parfumare și nu va încerca niciodată să vă surprindă.",
+      "Chanel",
+      array(
+        "chanel_paris.jpg"
+      )
+    ),
+    array(
+      "Versense",
+      720,
+      "Un răsfăț irezistibil al tuturor simțurilor. Versace Versense este un buchet de flori cu toate aromele Mediteranei. Prin autenticitatea sa, care combină prospețimea cu energia, reprezintă perfect femeia care se identifică cu brandul Versace.",
+      "Versace",
+      array(
+        "versace_verse.jpg"
+      )
+    ),
   );
 
  
@@ -125,16 +152,11 @@
   }
 
   // Note: Create 'utilizator' table if not exists.
-  $create_user_table_query = "
-      CREATE TABLE IF NOT EXISTS $user_table (
-        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        email NVARCHAR(2048) NOT NULL,
-        parola NVARCHAR(2048) NOT NULL,
-        
-      )
+  $create_user_table_querry = "
+    CREATE TABLE IF NOT EXISTS $user_table_name (
+      id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      email NVARCHAR(2048) NOT NULL,
+      parola NVARCHAR(2048) NOT NULL
+    )
   ";
-
-  $conn->exec($create_user_table_query);
-
-  //Note: This function brake the connection with the database
-  $conn = null;
+  $conn->exec($create_user_table_querry);

@@ -29,6 +29,7 @@ body {
 .navigation{
   height: 60px;
   width: 100%;
+  border:none;
   background-color: #fff;
   color: #000;
   padding: 10px 80px;
@@ -53,6 +54,7 @@ body {
 .navigation-buttons:hover{
   transition: transform .4s;
   transform: scale(1.2);
+  cursor: pointer;
 }
 
 
