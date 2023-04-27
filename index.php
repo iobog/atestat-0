@@ -47,7 +47,7 @@
         // $database = "atestat_0";
         // $product_table_name = "produs";
         // $product_image_table_name = "produs_imagine";
-
+        
         $conn = new PDO("mysql:host=$servername;", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
