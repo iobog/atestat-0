@@ -27,10 +27,42 @@
     </div>
   </div>
   <div class="container-all">
-    <div class="product-image"> </div>
-    <div class="product-brand"> </div>
-    <div class="product-description"> </div>
-    <div class="product-price"> </div>
+    
+    <?php 
+      //Note: the following code  allows you to connect to the database
+      $conn = new PDO("mysql:host=$servername;", $username, $password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $conn->exec("USE $database");
+    ?>
+
+    <?php 
+    //note: here we 'should' take from produse database THE PRODUCT WICH HAVE THE ID=PRODUCT_ID 
+      $select_products_query = "SELECT * FROM $product_table_name WHERE id=$product_id";
+      $smt = $conn->prepare($select_products_query);
+      $smt->execute();
+      $product = $smt->fetch();
+    ?>
+    <?php 
+      $select_product_images_query = "
+        SELECT * FROM $product_image_table_name
+        WHERE produs_id = ?
+      ";
+      $smt = $conn->prepare($select_product_images_query);
+      $smt->execute([$product["id"]]);
+      $images = $smt->fetchAll();
+    ?>
+    <div class="product-image"> 
+
+    </div>
+    <div class="product-brand"> 
+     <img
+        src="./media/produse/killian/<?php echo $images[0]["url"]?>" 
+        alt="">
+    </div> <br>
+    <div class="product-description"> 
+      <?php echo $product["descriere"]?>
+    </div><br>
+    <div class="product-price"> <?php echo $product["pret"]?></div><br>
     
       
 
