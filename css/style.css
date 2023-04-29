@@ -1,7 +1,7 @@
 * {
   margin: 0px;
   padding: 0px;
-  box-sizing: border-box;
+  
 }
 
 html, body {
@@ -125,7 +125,7 @@ body {
 
 .product-card-price {
   font-size: 14px;
-  font-weight: 300px;
+  font-weight: 300;
 }
 
 /* some aditionals */
@@ -133,8 +133,35 @@ body {
 .container-all{
   background-color: aquamarine; 
   padding: 10px;
-  width: calc(100%-500px);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: auto auto auto;
+}
+
+.product-image{
+  width: 640px;
+}
+
+.product-image img{
+  height: 640px;
+}
+
+.product-brand{
+  text-transform: uppercase;
+
+ 
+}
+.product-name{
+  text-transform: uppercase;
+  
+}
+
+.product-pentru{
+  text-transform: uppercase;
+ 
+}
+.product-price{
+  text-transform: uppercase;
+ 
+}
+.product-description{
+  text-transform: uppercase;
 }

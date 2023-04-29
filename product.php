@@ -26,15 +26,16 @@
         <i class="fa-solid fa-bag-shopping" style="color: #15322f;"></i> 0 lei
     </div>
   </div>
+
+
   <div class="container-all">
-    
+
     <?php 
       //Note: the following code  allows you to connect to the database
       $conn = new PDO("mysql:host=$servername;", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $conn->exec("USE $database");
     ?>
-
     <?php 
     //note: here we 'should' take from produse database THE PRODUCT WICH HAVE THE ID=PRODUCT_ID 
       $select_products_query = "SELECT * FROM $product_table_name WHERE id=$product_id";
@@ -51,20 +52,31 @@
       $smt->execute([$product["id"]]);
       $images = $smt->fetchAll();
     ?>
-    <div class="product-image"> 
 
-    </div>
-    <div class="product-brand"> 
-     <img
+    <div class="product-image"> 
+    <img
         src="./media/produse/killian/<?php echo $images[0]["url"]?>" 
         alt="">
+    </div>
+
+    <div class="product-brand"> 
+      <?php echo $product["brand"] ?>
     </div> <br>
+
+    <div class="product-name"> 
+      <?php echo $product["nume"]?>
+    </div><br>
+
+    <div class="product-pentru"> 
+      <?php echo $product["pentru"]?>
+    </div><br>
+
+    <div class="product-price"> 
+      <?php echo $product["pret"]?>
+    </div><br>
+
     <div class="product-description"> 
       <?php echo $product["descriere"]?>
     </div><br>
-    <div class="product-price"> <?php echo $product["pret"]?></div><br>
-    
-      
-
   <div>
 </body
