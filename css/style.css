@@ -1,7 +1,7 @@
 * {
   margin: 0px;
   padding: 0px;
-  
+  box-sizing: border-box;
 }
 
 html, body {
@@ -131,7 +131,7 @@ body {
 /* some aditionals */
 
 .container-all{
-  background-color: aquamarine; 
+  
   padding: 10px;
   margin: 0 auto;
 }
