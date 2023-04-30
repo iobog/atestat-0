@@ -131,13 +131,16 @@ body {
 /* some aditionals */
 
 .container-all{
-  
+  display: grid;
   padding: 10px;
   margin: 0 auto;
+  width: 1000px;
+  grid-template-columns: auto auto;
 }
 
 .product-image{
   width: 640px;
+  float: left;
 }
 
 .product-image img{
@@ -146,22 +149,23 @@ body {
 
 .product-brand{
   text-transform: uppercase;
-
+  text-align: center;
  
 }
 .product-name{
   text-transform: uppercase;
-  
+  text-align: center;
 }
 
 .product-pentru{
   text-transform: uppercase;
- 
+  text-align: center;
 }
 .product-price{
   text-transform: uppercase;
- 
+  text-align: center;
 }
 .product-description{
   text-transform: uppercase;
+  text-align: center;
 }

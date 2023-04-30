@@ -52,7 +52,7 @@
       $smt->execute([$product["id"]]);
       $images = $smt->fetchAll();
     ?>
-
+    
     <div class="product-image"> 
     <img
         src="./media/produse/killian/<?php echo $images[0]["url"]?>" 
@@ -71,12 +71,21 @@
       <?php echo $product["pentru"]?>
     </div><br>
 
+    <div class="product-cantitate"> 
+      <?php echo $product["cantitate"]?>
+    </div><br>
+
     <div class="product-price"> 
-      <?php echo $product["pret"]?>
+      <?php echo round($product["pret"])?>
+    </div><br>
+
+    <div class="add-to-shopping-cart"> 
+      
     </div><br>
 
     <div class="product-description"> 
       <?php echo $product["descriere"]?>
     </div><br>
+
   <div>
 </body
