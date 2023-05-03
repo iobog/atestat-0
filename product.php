@@ -1,6 +1,6 @@
 <?php
   $product_id = $_GET['id'];
-  echo "ID Produs: $product_id";
+  //echo "ID Produs: $product_id";
   // ...
   require_once("./db_config.php");
   ?>
@@ -53,39 +53,45 @@
       $images = $smt->fetchAll();
     ?>
     
-    <div class="product-image"> 
-    <img
-        src="./media/produse/killian/<?php echo $images[0]["url"]?>" 
-        alt="">
+    <div class="image-and-informations">
+      <div class="product-image"> 
+      <img
+          src="./media/produse/killian/<?php echo $images[0]["url"]?>" 
+          alt="">
+      </div>
+
+      <div class="product-informations">
+        <div class="product-brand"> 
+          <?php echo $product["brand"] ?>
+        </div>
+
+        <div class="product-name"> 
+          <?php echo $product["nume"]?>
+        </div>
+
+        <div class="product-pentru"> 
+          Parfum pentru <?php echo $product["pentru"]?>
+        </div>
+
+        <div class="product-cantitate-and-price">
+          <div class="product-cantitate"> 
+            <?php echo $product["cantitate"]?> ml
+          </div>
+
+          <div class="product-price"> 
+            <?php echo round($product["pret"])?> lei
+          </div>
+        </div>
+        <hr class="line">
+        <div class="add-to-shopping-cart"> 
+          Adaugare Cos
+        </div>
+      </div>
     </div>
-
-    <div class="product-brand"> 
-      <?php echo $product["brand"] ?>
-    </div> <br>
-
-    <div class="product-name"> 
-      <?php echo $product["nume"]?>
-    </div><br>
-
-    <div class="product-pentru"> 
-      <?php echo $product["pentru"]?>
-    </div><br>
-
-    <div class="product-cantitate"> 
-      <?php echo $product["cantitate"]?>
-    </div><br>
-
-    <div class="product-price"> 
-      <?php echo round($product["pret"])?>
-    </div><br>
-
-    <div class="add-to-shopping-cart"> 
-      
-    </div><br>
-
+    <p class="descriere-titlu"> Descriere <?php echo $product["brand"] ?> <?php echo $product["nume"] ?></p>
     <div class="product-description"> 
       <?php echo $product["descriere"]?>
-    </div><br>
+    </div>
 
   <div>
 </body

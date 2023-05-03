@@ -15,19 +15,11 @@
 
   </head>
   <body>
- 
-<!-- header and navigation -->
-    <div class="wrapper">
-      <h2 class="wrapper-title">Autentificare</h2>
-      <form  action="">
-          E-mail Address<br>
-        <input type="email" required name="adresa-email"><br>
-          Parola<br>
-        <input type="password" required name="password"><br>
-        <input type="submit" value="Autentificare" />
-      </form>
-    </div>
+    <!-- header and navigation -->
+    <div class="container">
 
+    </div>
+    
 
   </body>
 </html>
