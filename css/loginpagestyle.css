@@ -13,21 +13,14 @@
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     font-size: 16px;
   }
-  .wrapper{
-    margin: 0 auto;
-    width: 300;
-    height: 500;
-    padding: 10px;
+  .container-all-items-login{
+    height: 640px !important;
+    width: 640px;;
+    margin: auto auto;
     background-color: aqua;
-    
-    text-align: center;
     align-items: center;
+    justify-content: center;
   }
-  .wrapper-title{
-    font-weight:500;
-    padding: 11px;
-    
-    text-transform: uppercase;
-    margin-bottom: 11px;
-    letter-spacing: 0.4px;
+  .conectare-title{
+    font-weight: 700;
   }

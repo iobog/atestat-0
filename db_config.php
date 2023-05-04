@@ -2,7 +2,7 @@
 
   $servername = "localhost";
   $username = "root";
-  $password = "Parola2019";
+  $password = "";
 
   $database = "atestat_0";
   $product_table_name = "produs";
