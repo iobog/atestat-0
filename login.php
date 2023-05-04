@@ -17,19 +17,23 @@
   <body>
     <!-- header and navigation -->
     <div class="container-all-items-login">
-      <h1 class="conectare-title">Connectare</h1>
+      <h1 class="conectare-title">Conectare</h1>
+
       <form action="login.php" method="post">
-        <div>
-            <div>Email</div><br>
-            <input type="text" name="username" required>
+
+        <div class="email-container">
+            <div class="email">Email</div><br>
+            <input type="email" name="email" required>
         </div>
-        <div>
-            <div>Parolă</div><br>
-            <input type="password" name="password" required>
-        </div>
-        <div  class ="autentificare-buton"><br>
-            <input type="submit" value="Autentificare">
-        </div>
+
+        <div class="parola-container">
+          <div class="parola">Parolă</div><br>
+
+          <input  class="input-informations" type="password" name="password" required>
+
+        </div><br>
+          <input class ="autentificare-buton" type="submit" value="Autentificare">
+        
       </form>
     </div>
     
