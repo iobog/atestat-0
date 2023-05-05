@@ -13,29 +13,29 @@
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     font-size: 16px;
   }
-  .container-all-items-login{
-    height: 400px !important;
-    margin: auto auto;
-    background-color: aqua;
-    padding: 30px;
-     
-    width:20%;  
-    border-radius: 2px;  
-    margin: 120px auto;  
+.container-all{
+  
+  margin: auto auto;
+  
+  padding: 30px;
+  height:fit-content;
+  width:20%;  
+  border-radius: 2px;  
+  margin: 120px auto;  
   }
-  .conectare-title{
-    font-weight: 200;
-    letter-spacing: 1.4px;
-    width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: center;;
-  }
+.conectare-title{
+  font-weight: 200;
+  letter-spacing: 1.4px;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: center;;
+}
 
 input[type="email"] {
   background-color: white;
-  color: navy;
-  border: 2px solid gray;
+  color:black;
+  border: 1px solid black;
   padding: 13px;
   width: 100%;
   height: 30px;
@@ -44,22 +44,29 @@ input[type="email"]:hover{
   border: #000;
 }
 
+
+.parola-container{
+  margin-top: 27px;
+}
+
 input[type="password"] {
   background-color: white;
   color: navy;
-  border: 2px solid gray;
+  border: 1px solid black;
   padding: 13px;
   width: 100%;
   height: 30px;
 }
 input[type="password"]:hover{
   border: #000;
+  border: 1px solid black;
 }
 
-  .autentificare-buton{
+.autentificare-buton{
   font-weight:bold;
   font-size:16px;
   width: 100%;
+  margin-top: 20px;
   display: flex;
   justify-content: center;;
   height: 39px;
@@ -76,18 +83,51 @@ input[type="password"]:hover{
   background-color: #1f1e1eec;
   cursor: pointer;
 }
-.termeni-si-conditii{
-  display: flex;
-}
 
-.conditions{
+
+.termeni-si-conditii{
   font-size: 14px;
   letter-spacing: 0.4;
   text-decoration: none;
-  display: flex;
+  
+  justify-content:start;
+  height:fit-content;
+ 
 }
-input[type="checkbox"]{
+
+.linker{
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 13px;
+  
+  color: black;
+}
+.linker:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.email-container{
+  margin:0 0;
+}
+
+.autentificare-link{
+  font-weight: 500;
+  color: black;
+}
+.autentificare-link:hover{
+  text-decoration: underline;
+  color: black;
+  cursor: pointer;
+  transform: scale(1.0);
+  transition: 0.4s;
+}
+.footer-registration-wrapper{
+  margin-top:25px;
   display: flex;
-  align-items: start;
-  margin:0 auto;
+  font-size: 14px;
+  justify-content: center;
+  
+  letter-spacing: 0.4;
+
 }
