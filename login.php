@@ -50,16 +50,21 @@
 
 
 
-      if(isset($_POST["username"])&&isset($_POST["password"]))
+      if(isset($_POST["email"])&&isset($_POST["password"]))
       {
         $email=$_POST['email'];
         $password=$_POST['password'];  
         //note: here we 'should' take from produse database THE PRODUCT WICH HAVE THE ID=PRODUCT_ID 
-        $user_querry = "SELECT * FROM $user_table_name WHERE 'email'=$email and 'parola'=$password";
-        $smt = $conn->prepare($user_querry);
+
+        $conn->exec("USE $database");
+
+        $smt = $conn->prepare("SELECT COUNT(*) from $user_table_name where email = :name and parola = :password");
+        $smt->bindParam(":name", $email);
+        $smt->bindParam(":password", $password);
         $smt->execute();
-        $user = $smt->fetch();
-        if($user==0){
+        $count = $smt->fetchColumn();
+
+        if($count==0){
           ?>
           <script type="text/javascript">
               alert("Acest cont nu exista");
@@ -68,7 +73,10 @@
           <?php
         }
         else{
+          session_start();
+          
           header("location:index.php");
+          
           exit();
         }
       
