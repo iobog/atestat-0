@@ -32,7 +32,9 @@
       <a class="navigation-buttons" href="#0">
         <div class="">Despre noi</div>
       </a>
-      
+      <a class="navigation-buttons" href="login.php">
+        <div class="">Conectare</div>
+      </a>
     </div>
 
     <div class="product-card-container">

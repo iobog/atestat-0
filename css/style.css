@@ -37,7 +37,7 @@ body {
   box-shadow: 0 1px 3px #0000002e;
   align-content: center;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   
 }
 .navigation-buttons{
@@ -47,14 +47,17 @@ body {
   color: #000;
   text-decoration: none;
   letter-spacing: 0.4px;
+  letter-spacing: 0.5px;
 }
 .navigation-buttons {
   overflow: hidden;
 }
 .navigation-buttons:hover{
-  transition: transform .4s;
-  transform: scale(1.2);
+  
   cursor: pointer;
+  letter-spacing: 0.6px;
+  text-decoration: underline;
+  color: black;
 }
 
 

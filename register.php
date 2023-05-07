@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/loginpagestyle.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,34 +17,80 @@
   </head>
   <body>
     <!-- header and navigation -->
-    <div class="container-all-items-login">
+    <div class="header">
+      <div class="header-logo">Magazinul</div>
+      <div class="header-cart">
+        <i class="fa-solid fa-bag-shopping" style="color: #15322f;"></i> 0 lei
+      </div>
+    </div>
+    <div class="container-all-login-register">
       <h1 class="conectare-title">Înregistrare</h1> 
 
       <div class="container-all-items">
         <form action="register.php" method="post">
           
-          <div class="email-container">
-              <div class="email">E-mail</div><br>
-              <input type="email" name="email" required>
-          </div>
+            <div class="email">E-mail</div><br>
+            <input type="email" name="email" required placeholder="Introduceti e-mail">
 
           <div class="parola-container">
             <div class="parola">Parolă</div><br>
 
-            <input  class="input-informations" type="password" name="password" required>
+            <input type="password" name="password"  required placeholder="Introduceti parola">
 
           </div><br>
           <div class="termeni-si-conditii">
-            <input type="checkbox" name="conditii" required>
-            <a class="conditions"href="#">Declar că am luat cunoștință de  Principiile prelucrării datelor cu caracter personalși de termeni și condiții, 
-              așadar doresc să mă înregistrez și să mă alătur clubului Fregrance.</a>
+            Declar că am luat cunoștință de  Principiile prelucrării datelor cu caracter personal și de <a class="linker" href="termeni_si_conditii.html">termeni și condiții</a>, așadar doresc să mă înregistrez.
           </div>
-            <input class ="autentificare-buton" type="submit" value="Inregistrare">
+            <input class ="autentificare-buton" type="submit" name="button"value="Inregistrare">
 
         </form>
+
+        <div class="footer-registration-wrapper">Aveți deja un cont?  <a class="autentificare-link" href="login.php"> Autentificare</a></div>
+
       </div>
     </div>
-    
+    <?php  
+       if(isset($_POST["button"]))
+       {
+
+          require_once("./db_config.php");
+
+          $email=$_POST['email'];
+          $parola=$_POST['password'];
+
+          $conn = new PDO("mysql:host=$servername;", $username, $password);
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
+          $conn->exec("USE $database");
+          $smt = $conn->prepare("SELECT COUNT(*) from $user_table_name where email = :name");
+          $smt->bindParam(":name", $email);
+          $smt->execute();
+          $count = $smt->fetchColumn();
+          if($count==0)
+          {
+            $user_table_querry = "
+              INSERT INTO $user_table_name (email, parola)
+              VALUES (:email, :parola)
+            ";
+            $smt = $conn->prepare($user_table_querry);
+            $smt->bindParam(':email', $email);
+            $smt->bindParam(':parola', $parola);
+            $smt->execute();
+            $last_product_id = $conn->lastInsertId();
+
+            header("location:login.php");
+            exit();
+
+          } 
+           else{  ?>
+            <script type="text/javascript">
+              alert("Email deja folosi");
+            </script>
+          <?php
+          }
+
+       }
+    ?>
 
   </body>
 </html>
