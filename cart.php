@@ -35,48 +35,51 @@
     $cart_items = get_cart_items($cart["id"]);
   ?>
 
-  <table>
-    <tr>
-      <th>Produs</th>
-      <th>Cantitate</th>
-      <th>Pret</th>
-      <th></th>
-    </tr>
-    <?php foreach($cart_items as $cart_item): ?>
+  <div class="cart-products-dispayed">
+    <table>
       <tr>
+        <th>Produs</th>
+        <th>Cantitate</th>
+        <th>Pret</th>
+        <th></th>
+      </tr>
+      <?php foreach($cart_items as $cart_item): ?>
+        <tr>
+          <td>
+            <?php echo $cart_item["nume"]; ?>
+          </td>
+          <td>
+            <?php echo $cart_item["cantitate"]; ?>
+          </td>
+          <td>
+            <?php echo round($cart_item["pret"], 2); ?> lei
+          </td>
+          <td>
+            <form action="cart.php" method="POST">
+              <button 
+                type="submit" 
+                name="remove_cart_item"
+                value="<?php echo $cart_item["cos_element_id"]; ?>">
+                Elimină
+              </button>
+            </form>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+      <tr>
+        <td></td>
         <td>
-          <?php echo $cart_item["nume"]; ?>
+          <b>TOTAL: </b>
         </td>
         <td>
-          <?php echo $cart_item["cantitate"]; ?>
-        </td>
-        <td>
-          <?php echo round($cart_item["pret"], 2); ?> lei
-        </td>
-        <td>
-          <form action="cart.php" method="POST">
-            <button 
-              type="submit" 
-              name="remove_cart_item"
-              value="<?php echo $cart_item["cos_element_id"]; ?>">
-              Elimină
-            </button>
-          </form>
+          <b>
+            <?php echo round($cart["total"], 2); ?> lei
+          </b>
         </td>
       </tr>
-    <?php endforeach; ?>
-    <tr>
-      <td></td>
-      <td>
-        <b>TOTAL: </b>
-      </td>
-      <td>
-        <b>
-          <?php echo round($cart["total"], 2); ?> lei
-        </b>
-      </td>
-    </tr>
-  </table>
+    </table>
+
+  </div>
 
   <?php
     // Note: Remove item from cart.

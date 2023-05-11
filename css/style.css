@@ -286,3 +286,11 @@ body {
   size: 2px;
   color: #000;
 }
+
+
+
+.cart-products-dispayed{
+  margin:0 auto;
+  height: fit-content;
+  padding:100px;
+}
