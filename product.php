@@ -1,13 +1,11 @@
-<?php
-  $product_id = $_GET['id'];
-  //echo "ID Produs: $product_id";
-  // ...
-  require_once("./db_config.php");
-  ?>
-<head>
+<html>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/product.css">
+    <link rel="stylesheet" type="text/css" href="css/breadcrumb.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,81 +15,128 @@
 
     <script src="https://kit.fontawesome.com/401ef7ae9e.js" crossorigin="anonymous"></script>
 
-</head>
-<body>
+  </head>
 
-  <div class="header">
-    <div class="header-logo">Magazinul</div>
-      <div class="header-cart">
-        <i class="fa-solid fa-bag-shopping" style="color: #15322f;"></i> 0 lei
-    </div>
-  </div>
-
-
-  <div class="container-all">
-
+  <body>
+    
+    
     <?php 
-      //Note: the following code  allows you to connect to the database
+      session_start();
+      require_once('./header.php');
+      require_once './cart_logic.php';
+    ?>
+
+    <?php
+
+      require_once("./db_config.php");
+
       $conn = new PDO("mysql:host=$servername;", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
       $conn->exec("USE $database");
-    ?>
-    <?php 
-    //note: here we 'should' take from produse database THE PRODUCT WICH HAVE THE ID=PRODUCT_ID 
-      $select_products_query = "SELECT * FROM $product_table_name WHERE id=$product_id";
+
+      $product_id = $_GET['id'];
+
+      // Note: select all products. 
+      $select_products_query = "SELECT * FROM $product_table_name WHERE id = ?";
       $smt = $conn->prepare($select_products_query);
-      $smt->execute();
-      $product = $smt->fetch();
-    ?>
-    <?php 
+      $smt->execute([$product_id]);
+      $products = $smt->fetchAll();
+
+      $product = $products[0];
+
       $select_product_images_query = "
         SELECT * FROM $product_image_table_name
         WHERE produs_id = ?
       ";
+
       $smt = $conn->prepare($select_product_images_query);
       $smt->execute([$product["id"]]);
       $images = $smt->fetchAll();
+
+      // var_dump($product);
+      //var_dump($images);
+
     ?>
-    
-    <div class="image-and-informations">
-      <div class="product-image"> 
-      <img
-          src="./media/produse/killian/<?php echo $images[0]["url"]?>" 
-          alt="">
+
+    <div class="breadcrumb-container">
+      <a href="index.php" class="breadcrumb-element">Produse</a>
+      <div class="breadcrumb-separator">/</div>
+      <a href="product.php?id=<?php echo $product_id; ?>" class="breadcrumb-element">
+        <?php echo $product["nume"]; ?>
+      </a>
+    </div>
+
+    <div class="product-page">
+      <div class="product-images">
+        <?php foreach($images as $image): ?>
+          <img
+            src="./media/produse/<?php echo $image["url"]?>" 
+            alt="">
+        <?php endforeach ?> 
       </div>
-
-      <div class="product-informations">
-        <div class="product-brand"> 
-          <?php echo $product["brand"] ?>
-        </div>
-
-        <div class="product-name"> 
-          <?php echo $product["nume"]?>
-        </div>
-
-        <div class="product-pentru"> 
+      <div class="product-details">
+        <div class="product-details-container">
+          <div class="product-brand">
+            <?php echo $product["brand"]?>
+          </div>
+          <div class="product-name">
+            <?php echo $product["nume"]?>
+          </div>
+          <div class="product-pentru"> 
           Parfum pentru <?php echo $product["pentru"]?>
+         </div>
+
+          <div class="product-cantitate-and-price">
+            <div class="product-cantitate"> 
+              <?php echo $product["cantitate"]?> ml
+            </div>
+
+            <div class="product-price"> 
+            <?php echo round($product["pret"], 2)?> lei
+            </div>
+          </div>
+          <form action="" method="POST">
+            <button 
+              class="add-to-cart-button"
+              type="submit" 
+              name="add_to_cart"
+              value="<?php echo $product_id ?>">
+              Adaugă în coș
+            </button>
+          </form>
         </div>
 
-        <div class="product-cantitate-and-price">
-          <div class="product-cantitate"> 
-            <?php echo $product["cantitate"]?> ml
-          </div>
-
-          <div class="product-price"> 
-            <?php echo round($product["pret"])?> lei
+        <div class="description">
+          <p class="descriere-titlu"> Descriere <?php echo $product["brand"] ?> <?php echo $product["nume"] ?></p>
+          <div class="product-description"> 
+            <?php echo $product["descriere"]?>
           </div>
         </div>
-        <hr class="line">
-        <div class="add-to-shopping-cart"> 
-          Adaugare Cos
-        </div>
+      
       </div>
     </div>
-    <p class="descriere-titlu"> Descriere <?php echo $product["brand"] ?> <?php echo $product["nume"] ?></p>
-    <div class="product-description"> 
-      <?php echo $product["descriere"]?>
-    </div>
 
-  <div>
-</body
+    <?php 
+      if (isset($_POST["add_to_cart"]) || 
+      (isset($_GET["action"]) && $_GET["action"] == "add")) 
+      {
+        if (!isset($_SESSION["user_id"]))
+        {
+          header("Location: login.php?add_product=$product_id");
+        }
+        
+        $user_id = $_SESSION["user_id"];
+        add_to_cart($user_id, $product);
+
+        // Note: Refresh the page
+        // in order to see the new 
+        // total.
+        header("Location: product.php?id=$product_id");
+      }
+
+    ?>
+
+  </body>
+
+</html>

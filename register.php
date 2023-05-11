@@ -17,16 +17,12 @@
   </head>
   <body>
     <!-- header and navigation -->
-    <div class="header">
-      <div class="header-logo">Magazinul</div>
-      <div class="header-cart">
-        <i class="fa-solid fa-bag-shopping" style="color: #15322f;"></i> 0 lei
-      </div>
-    </div>
+    <
     <div class="container-all-login-register">
       <h1 class="conectare-title">Înregistrare</h1> 
 
       <div class="container-all-items">
+
         <form action="register.php" method="post">
           
             <div class="email">E-mail</div><br>
@@ -45,8 +41,6 @@
 
         </form>
 
-        <div class="footer-registration-wrapper">Aveți deja un cont?  <a class="autentificare-link" href="login.php"> Autentificare</a></div>
-
       </div>
     </div>
     <?php  
@@ -62,30 +56,35 @@
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
           $conn->exec("USE $database");
-          $smt = $conn->prepare("SELECT COUNT(*) from $user_table_name where email = :name");
+          $smt = $conn->prepare("SELECT COUNT(*) from $user_table_name where username = :name");
           $smt->bindParam(":name", $email);
           $smt->execute();
           $count = $smt->fetchColumn();
           if($count==0)
           {
             $user_table_querry = "
-              INSERT INTO $user_table_name (email, parola)
+              INSERT INTO $user_table_name (username, password)
               VALUES (:email, :parola)
             ";
             $smt = $conn->prepare($user_table_querry);
             $smt->bindParam(':email', $email);
             $smt->bindParam(':parola', $parola);
             $smt->execute();
-            $last_product_id = $conn->lastInsertId();
 
-            header("location:login.php");
+            ?>
+            <script>
+              history.go(-2);
+            </script>
+            <?php            
             exit();
 
           } 
            else{  ?>
             <script type="text/javascript">
+              history.go(-1);
               alert("Email deja folosi");
             </script>
+            
           <?php
           }
 

@@ -25,8 +25,10 @@
 
     <div class="breadcrumb-container">
       <a href="index.php" class="breadcrumb-element">Produse</a>
+      <div class="breadcrumb-separator">/</div>
+      <a href="female.php" class="breadcrumb-element">Dama</a>
+      
     </div>
-
     <div class="product-card-container">
       <?php
 
@@ -38,7 +40,7 @@
         $conn->exec("USE $database");
 
         // Note: select all products.
-        $select_products_query = "SELECT * FROM $product_table_name";
+        $select_products_query = "SELECT * FROM $product_table_name WHERE pentru='femei'";
         $smt = $conn->prepare($select_products_query);
         $smt->execute();
         $products = $smt->fetchAll();
@@ -77,41 +79,7 @@
           
         <?php endforeach ?>
 
-        <!-- <?php
-
-        // foreach ($products as $product) {
-
-        //   // Note: select product images.
-        //   $select_product_images_query = "
-        //     SELECT * FROM $product_image_table_name
-        //     WHERE produs_id = ?
-        //   ";
-
-        //   $smt = $conn->prepare($select_product_images_query);
-        //   $smt->execute([$product["id"]]);
-        //   $images = $smt->fetchAll();
-          
-          
-        //   // echo "
-        //   //   <div class=\"product-card\">
-        //   //     <div>
-        //   //       <img 
-        //   //         class=\"product-card-image\"
-        //   //         src=\"./media/produse/".$images[0]['url']."\">
-        //   //     </div>
-        //   //     <div class=\"product-card-brand\">"
-        //   //       .$product['brand'].
-        //   //     "</div>
-        //   //     <div class=\"product-card-name\">"
-        //   //       .$product['nume'].
-        //   //     "</div>
-        //   //     <div class=\"product-card-price\">"
-        //   //       .round($product['pret'], 2)." lei
-        //   //     </div>
-        //   //   </div>
-        //   // ";
-        // }
-        ?> -->
+        
     </div>
 
   </body>

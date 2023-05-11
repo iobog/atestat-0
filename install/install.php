@@ -55,7 +55,8 @@
       "bărbați",
       100,
       array(
-        "killian_dark_lord.jpg"
+        "killian/killian_dark_lord.jpg",
+        "killian/killian_dark_lord_02.jpg"
       )
     ),
     array(
@@ -66,7 +67,7 @@
       "bărbați",
       100,
       array(
-        "killian_musk_oud.jpg"
+        "killian/killian_musk_oud.jpg"
       ) 
     ),
     array(
@@ -77,7 +78,7 @@
       "bărbați",
       100,
       array(
-        "killian_back_to_black.jpg"
+        "killian/killian_back_to_black.jpg"
       )
     ),
     array(
@@ -88,43 +89,48 @@
       "bărbați",
       100,
       array(
-        "killian_good_girl_gone_bad.jpg"
+        "killian/killian_good_girl_gone_bad.jpg"
       )
     ),
     array(
-      "The Dreamer",
-      400,
-      "Parfumul apei de toaletă Dreamer marca de renume mondial Versace este destinat bărbaților care visează cu ochii deschiși. Bărbații care sunt puternici, dar în același timp nu se tem să-și dezvăluie partea lor delicată și romantică. Închideți ochii și fiți duși de visele și fanteziile voastre cu parfumul unic de apă de toaletă, care a văzut lumina lumii în 1996. În ciuda faptului că parfumul a fost pe piață de mai mult de 20 de ani, nu încetează să fascineze atât bărbații, cât și femeile cu compoziția sa unică chiar și astăzi.",
-      "Versace",
+      "SICILIAN LEATHER",
+      1325,
+      "Se spune că oamenii nu cred în vulcani până nu le ajunge lava la picioare. La fel stau lucrurile și cu această călătorie olfactivă în adâncurile memoriei. SICILIAN LEATHER e un parfum temperamental despre insula Sicilia și caracterul ei vulcanic, o poveste spusă într-un acord suculent de portocală-lămâie, energic de coriandru-violetă, eruptiv de guaiac-piele. Într-adevăr, este un fenomen aparte, fenomenul unic prin care apa, focul și pielea se întâlnesc într-un parfum.",
+      "MEMO PARIS",
+      "femei",
+      100,
+      array(
+        "memo_paris/memo_paris_scilian_leather_0.jpg",
+        "memo_paris/memo_paris_scilian_leather_1.jpg",
+        "memo_paris/memo_paris_scilian_leather_2.jpg"
+      )
+    ),
+    array(
+      "TIGER'S NEST",
+      1325,
+      "E momentul să te „absintezi” și să te „tămâiezi”. Dacă emoțiile de catifea și acțiunile interzise sunt ceea ce te stârnește, vei adora să te simți TIGER NEST. Acest parfum este o creație uluitoare Memo Paris care se naște din ceea ce este sacru și totuși interzis, pentru a escalada muntele Bhutan unde limeta, papirusul, vanilia, trandafirul, șofranul și balsamul de Tolu alunecă și se împletesc ca limbile unui foc interior pe care nu îl poți ignora și pe care nu te poți abține să-l atingi.",
+      "MEMO PARIS",
+      "femei",
+      100,
+      array(
+        "memo_paris/memo_paris_tigers_nest_0.jpg",
+        "memo_paris/memo_paris_tigers_nest_1.jpg",
+        "memo_paris/memo_paris_tigers_nest_2.jpg"
+      )
+    ),
+    array(
+      "FLAM",
+      1325,
+      "Când nu poți să explici cum te simți, poți găsi un parfum care să o facă în locul tău. FLAM va inflama inima persoanei iubite cu farmecul lui hipnotic. Memo Paris a luat amintirea înghețatelor țărmuri nordice, de-a lungul cărora navele vikinge alunecă pe ape cristaline, și a transformat-o într-un mariaj maiestuos de portocală amară, bergamotă, iasomie, ambră, vanilie, mosc și salvie, o promisiune îndeplinită.",
+      "MEMO PARIS",
       "bărbați",
       100,
       array(
-        "versace.jpg"
-      )
-      
-    ),
-    array(
-      "Paris Biarritz",
-      910,
-      "Învăluiți-vă într-un parfum care se încadrează perfect în stilul dvs. și care devine rapid noua dvs. semnătură. Apa de toaletă unisex Chanel Paris Biarritz vă cucerește de la prima parfumare și nu va încerca niciodată să vă surprindă.",
-      "Chanel",
-      "femei",
-      100,
-      array(
-        "chanel_paris.jpg"
+        "memo_paris/memo_paris_flam_0.jpg",
+        "memo_paris/memo_paris_flam_1.jpg",
+        "memo_paris/memo_paris_flam_2.jpg"
       )
     ),
-    array(
-      "Versense",
-      720,
-      "Un răsfăț irezistibil al tuturor simțurilor. Versace Versense este un buchet de flori cu toate aromele Mediteranei. Prin autenticitatea sa, care combină prospețimea cu energia, reprezintă perfect femeia care se identifică cu brandul Versace.",
-      "Versace",
-      "femei",
-      100,
-      array(
-        "versace_verse.jpg"
-      )
-    )
   );
 
  
@@ -171,11 +177,58 @@
   }
 
   // Note: Create 'utilizator' table if not exists.
-  $create_user_table_querry = "
-    CREATE TABLE IF NOT EXISTS $user_table_name (
+  $create_user_table_query = "
+    CREATE TABLE IF NOT EXISTS $user_table_name(
       id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-      email NVARCHAR(2048) NOT NULL,
-      parola NVARCHAR(2048) NOT NULL
+      username NVARCHAR(30),
+      password NVARCHAR(30)
     )
   ";
-  $conn->exec($create_user_table_querry);
+  $conn->exec($create_user_table_query);
+  
+  // Note: Add test user.
+  $user = "test@test";
+  $pass = "test";
+
+  $create_user_query = "
+    INSERT INTO $user_table_name (username, password)
+    VALUES (?, ?)
+  ";
+  $smt = $conn->prepare($create_user_query);
+  $smt->execute([
+    $user,
+    $pass
+    //password_hash($pass, PASSWORD_DEFAULT)
+  ]);
+
+  // Note: Create 'Cart' table.
+  $create_cart_table_query = "
+    CREATE TABLE IF NOT EXISTS $cart_table_name(
+      id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      total DECIMAL(10,4),
+      utilizator_id INT(6) UNSIGNED NOT NULL,
+
+      FOREIGN KEY (utilizator_id) REFERENCES $user_table_name(id)
+    )
+  ";
+  $conn->exec($create_cart_table_query);
+
+  // Note: Create 'CartItem' table.
+  $create_cart_item_table_query = "
+    CREATE TABLE IF NOT EXISTS $cart_item_table_name(
+      id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      cantitate INT(6) UNSIGNED,
+      pret DECIMAL(10,4),
+      produs_id INT(6) UNSIGNED NOT NULL,
+      cos_id INT(6) UNSIGNED NOT NULL,
+
+      FOREIGN KEY (produs_id) REFERENCES $product_table_name(id),
+      FOREIGN KEY (cos_id) REFERENCES $cart_table_name(id)
+    )
+  ";
+  $conn->exec($create_cart_item_table_query);
+
+
+  $conn = null;
+  
+  header('Location: ./../index.php');

@@ -1,32 +1,86 @@
- 
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="css/loginpagestyle.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+<?php
+session_start();
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
-        <link rel="stylesheet" href="css/loginpagestyle.css" type="text/css>
-      <script src="https://kit.fontawesome.com/401ef7ae9e.js" crossorigin="anonymous"></script>
+require_once("./db_config.php");
 
-  </head>
-  <body>
-    <!-- header and navigation -->
-    <div class="header">
-      <div class="header-logo">Magazinul</div>
-      <div class="header-cart">
-        <i class="fa-solid fa-bag-shopping" style="color: #15322f;"></i> 0 lei
-      </div>
-    </div>
-    <div class="container-all-login-register">
+$conn = new PDO("mysql:host=$servername;", $username, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$conn->exec("USE $database");
+
+//var_dump($_POST);
+
+$message = null;
+
+if (isset($_POST["login"])) 
+{
+  $username = $_POST["email"];
+  $password = $_POST["password"];
+
+  // var_dump($_POST);
+  // echo "<br>";
+
+  $smt = $conn->prepare("SELECT * FROM $user_table_name WHERE username = ?");
+  $smt->execute([$username]);
+  $user = $smt->fetch();
+  //var_dump($user);
+
+  // echo "<br>";
+  // echo "pass: ".$user["password"];
+  // echo "<br>";
+  // echo "hash: ".password_hash($password, PASSWORD_DEFAULT);
+  // echo "<br>";
+
+  // var_dump(password_verify($password, $user["password"]));
+
+  // echo "<br>";
+
+  //if ($user === false || password_hash($password, PASSWORD_DEFAULT) != $user["password"])
+  if ($user === false || $password != $user["password"])
+  {
+    $message = "Nepermis! Date invalide";
+  }
+  else
+  {
+    $message = "Succes!";
+
+    session_unset();
+    session_destroy();
+    session_start();
+
+    $_SESSION["user_id"] = $user["id"];
+    $_SESSION["username"] = $user["username"];
+
+    if (isset($_GET["add_product"]))
+    {
+      $product_id = $_GET["add_product"];
+      header("Location: product.php?id=$product_id&action=add");
+    }
+    else
+    {
+      header("Location: index.php");
+    }
+
+  }
+}
+
+$action_url = "login.php?".http_build_query($_GET);
+//echo $action_url;
+?>
+
+<?php if ($message != null): ?>
+  <div>
+    <?php echo $message; ?>
+  </div>
+<?php endif; ?>
+
+<link rel="stylesheet" type="text/css" href="css/loginpagestyle.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<div class="container-all-login-register">
       <h1 class="conectare-title">Conectare</h1>
 
-      <form action="login.php" method="post">
+      <form action="<?php echo $action_url; ?>" method="post">
           
         <div class="email">E-mail</div><br>
         <input type="email" name="email" required placeholder="Introduceti e-mail">
@@ -35,55 +89,9 @@
           <div class="parola">Parolă</div><br>
           <input type="password" name="password"  required placeholder="Introduceti parola">
         </div><br>
-        <input class ="autentificare-buton" type="submit" value="Autentificare">
+        <input class ="autentificare-buton" type="submit" name="login" value="Autentificare">
 
       </form>
       <div class="footer-registration-wrapper">Nu aveți cont?  <a class="autentificare-link" href="register.php"> Inregistrare</a></div>
 
-    </div>
-    <?php 
-      require_once("./db_config.php");
-      //Note: the following code  allows you to connect to the database
-      $conn = new PDO("mysql:host=$servername;", $username, $password);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $conn->exec("USE $database");
-
-
-
-      if(isset($_POST["email"])&&isset($_POST["password"]))
-      {
-        $email=$_POST['email'];
-        $password=$_POST['password'];  
-        //note: here we 'should' take from produse database THE PRODUCT WICH HAVE THE ID=PRODUCT_ID 
-
-        $conn->exec("USE $database");
-
-        $smt = $conn->prepare("SELECT COUNT(*) from $user_table_name where email = :name and parola = :password");
-        $smt->bindParam(":name", $email);
-        $smt->bindParam(":password", $password);
-        $smt->execute();
-        $count = $smt->fetchColumn();
-
-        if($count==0){
-          ?>
-          <script type="text/javascript">
-              alert("Acest cont nu exista");
-          </script>
-
-          <?php
-        }
-        else{
-          session_start();
-          
-          header("location:index.php");
-          
-          exit();
-        }
-      
-         
-      }
-      
-    ?>
-
-  </body>
-</html>
+</div>
