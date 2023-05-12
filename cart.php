@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/product.css">
+  <link rel="stylesheet" type="text/css" href="css/cartcontent.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,16 +36,18 @@
     $cart_items = get_cart_items($cart["id"]);
   ?>
 
-  <div class="cart-products-dispayed">
-    <table>
-      <tr>
+  <div class="cart-products-dispay">
+    <table class="tabel">
+      <tr class="table-hedear-line">
         <th>Produs</th>
         <th>Cantitate</th>
         <th>Pret</th>
         <th></th>
-      </tr>
+      </tr >
       <?php foreach($cart_items as $cart_item): ?>
-        <tr>
+
+
+        <tr >
           <td>
             <?php echo $cart_item["nume"]; ?>
           </td>
@@ -66,7 +69,9 @@
           </td>
         </tr>
       <?php endforeach; ?>
-      <tr>
+      <tr class="table-line">
+
+
         <td></td>
         <td>
           <b>TOTAL: </b>

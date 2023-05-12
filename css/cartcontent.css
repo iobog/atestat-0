@@ -1,0 +1,32 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html, body {
+  display: block;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+.cart-products-dispay {
+  width: 1440px !important;
+  
+  margin:100px auto;
+  padding: 5px;
+  display: grid !important;
+  grid-template-columns: auto auto auto auto auto;
+  text-align:center;
+  
+}
+.tabel{
+  text-align: center;
+}
+
+table tr {
+  border: 2px solid #000;
+ }

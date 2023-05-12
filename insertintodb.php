@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -19,19 +18,34 @@
     <!-- header and navigation -->
     <
     <div class="container-all-login-register">
-      <h1 class="conectare-title">Înregistrare</h1> 
+      <h1 class="conectare-title">Inserare Produse </h1> 
 
       <div class="container-all-items">
-        
+
         <form action="register.php" method="post">
           
-            <div class="email">E-mail</div><br>
-            <input type="email" name="email" required placeholder="Introduceti e-mail">
+          <div class="email">Nume</div><br>
+          <input type="text" name="name" required placeholder="Nume">
 
-          <div class="parola-container">
-            <div class="parola">Parolă</div><br>
+          <div class="parola-container">Brand</div><br>
+          <input type="text" name="brand" required placeholder="Brand">
 
-            <input type="password" name="password"  required placeholder="Introduceti parola">
+          <div class="parola-container">Cantiate</div><br>
+          <input type="text" name="cantiatte" required placeholder="Cantiatte">
+
+          <div class="parola-container">Nume</div><br>
+          <input type="text" name="email" required placeholder="Nume">
+
+          <div class="parola-container">Nume</div><br>
+          <input type="text" name="email" required placeholder="Nume">
+
+          <div class="parola-container">Nume</div><br>
+          <input type="text" name="email" required placeholder="Nume">
+
+          <div class="parola-container">Nume</div><br>
+          <input type="text" name="email" required placeholder="Nume">
+
+
 
           </div><br>
           <div class="termeni-si-conditii">
