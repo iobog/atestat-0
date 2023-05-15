@@ -29,10 +29,10 @@ $total = round($total, 2);
 
 <div class="navigation">
       <a class="navigation-buttons" href="female.php">
-        <div class="">Parfumuri Dama</div>
+        <div class="">Parfumuri Femei</div>
       </a>
       <a class="navigation-buttons" href="male.php">
-        <div class="">Parfumuri Barbati</div>
+        <div class="">Parfumuri Bărbați</div>
       </a>
       <a class="navigation-buttons" href="about.php">
         <div class="">Despre noi</div>

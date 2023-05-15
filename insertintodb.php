@@ -17,41 +17,52 @@
   <body>
     <!-- header and navigation -->
     <
-    <div class="container-all-login-register">
+    <div class="container-insert-elements">
+
       <h1 class="conectare-title">Inserare Produse </h1> 
 
-      <div class="container-all-items">
+      <div class="container-inputs">
 
-        <form action="register.php" method="post">
-          
-          <div class="email">Nume</div><br>
-          <input type="text" name="name" required placeholder="Nume">
+        <form action="insertintodb.php" method="post">
+          <!-- 
+              brand
+              nume
+              pret
+              descriere
+              brand
+              pentru
+              cantitate
+              GetLastID-> img 
+              -->
+          <label>Nume</label>
+            <input type="text" name="name" required placeholder="Nume"><br>
 
-          <div class="parola-container">Brand</div><br>
-          <input type="text" name="brand" required placeholder="Brand">
+          <label>Brand</label>
+            <input type="text" name="brand" required placeholder="Brand"><br>
 
-          <div class="parola-container">Cantiate</div><br>
-          <input type="text" name="cantiatte" required placeholder="Cantiatte">
+          <abel>Cantiatte</abel>
+            <input type="text" name="cantiatte" required placeholder="Cantiatte"><br>
 
-          <div class="parola-container">Nume</div><br>
-          <input type="text" name="email" required placeholder="Nume">
+          <label>Pret<label>
+            <input type="number" name="pret" required placeholder="Pret"> <br>
 
-          <div class="parola-container">Nume</div><br>
-          <input type="text" name="email" required placeholder="Nume">
-
-          <div class="parola-container">Nume</div><br>
-          <input type="text" name="email" required placeholder="Nume">
-
-          <div class="parola-container">Nume</div><br>
-          <input type="text" name="email" required placeholder="Nume">
+          <label >Sex</label>
+            <select name="pentru" >
+              <option value="femei">Femei</option>
+              <option value="bărbați">Bărbați</option>
+              
+            </select>
 
 
 
-          </div><br>
-          <div class="termeni-si-conditii">
-            Declar că am luat cunoștință de  Principiile prelucrării datelor cu caracter personal și de <a class="linker" href="termeni_si_conditii.html">termeni și condiții</a>, așadar doresc să mă înregistrez.
-          </div>
-            <input class ="autentificare-buton" type="submit" name="button"value="Inregistrare">
+
+          <p><label for="w3review">Descriere:</label></p>
+          <textarea  name="w3review" rows="20" cols="50"></textarea><br>
+
+          <label for="files">Select files:</label>
+            <input type="file" id="files" name="Pictures" multiple><br><br>
+
+          <input class ="autentificare-buton" type="submit" name="button"value="Inserare">
 
         </form>
 
@@ -63,7 +74,7 @@
 
           require_once("./db_config.php");
 
-          $email=$_POST['email'];
+          $email=$_POST['name'];
           $parola=$_POST['password'];
 
           $conn = new PDO("mysql:host=$servername;", $username, $password);
@@ -89,6 +100,7 @@
             <script>
               history.go(-2);
             </script>
+
             <?php            
             exit();
 
