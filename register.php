@@ -80,9 +80,13 @@
 
           } 
            else{  ?>
+           
+            <script type="text/javascript">
+              alert("Email deja folosi");
+            </script>
+            sleep(2000);
             <script type="text/javascript">
               history.go(-1);
-              alert("Email deja folosi");
             </script>
             
           <?php

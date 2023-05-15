@@ -15,7 +15,7 @@ $total = round($total, 2);
 ?>
 
 <div class="header">
-  <a class="header-logo" href="index.php">Magazinul</a>
+  <a class="header-logo" href="index.php">Fregrance</a>
   <a class="header-link" href="account.php">
     <i class="fa-solid fa-user"></i>
     <?php echo $user; ?>
