@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/loginpagestyle.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/insertintodbcss.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,23 +35,22 @@
               cantitate
               GetLastID-> img 
               -->
-          <label>Nume</label>
+          <p><label for="nume">Nume</label></p>
             <input type="text" name="name" required placeholder="Nume"><br>
 
-          <label>Brand</label>
+          <p><label for="brand">Brand</label></p>
             <input type="text" name="brand" required placeholder="Brand"><br>
 
-          <abel>Cantiatte</abel>
-            <input type="text" name="cantiatte" required placeholder="Cantiatte"><br>
+          <p><label for="cantitate">Cantiatte</label></p>
+            <input type="number" name="cantiatte" required placeholder="Cantiatte"><br>
 
-          <label>Pret<label>
+          <p><label for="pret">Pret</label></p>
             <input type="number" name="pret" required placeholder="Pret"> <br>
 
-          <label for ="pentru">Sex</label>
+          <p><label for="pentru">Sex</label></p>
             <select name="pentru" >
               <option value="femei">Femei</option>
               <option value="bărbați">Bărbați</option>
-              
             </select>
 
 
@@ -60,7 +60,7 @@
           <textarea  name="descriere" rows="20" cols="50"></textarea><br>
 
           <label for="files">Select files:</label>
-            <input type="file" id="files" name="Pictures" multiple><br><br>
+            <input type="file"name="imagini_produs[]" multiple><br>
 
           <input class ="autentificare-buton" type="submit" name="button"value="Inserare">
 

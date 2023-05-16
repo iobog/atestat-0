@@ -55,8 +55,8 @@
       "bărbați",
       100,
       array(
-        "killian/killian_dark_lord.jpg",
-        "killian/killian_dark_lord_02.jpg"
+        "killian_dark_lord.jpg",
+        "killian_dark_lord_02.jpg"
       )
     ),
     array(
@@ -67,7 +67,7 @@
       "bărbați",
       100,
       array(
-        "killian/killian_musk_oud.jpg"
+        "killian_musk_oud.jpg"
       ) 
     ),
     array(
@@ -78,7 +78,7 @@
       "bărbați",
       100,
       array(
-        "killian/killian_back_to_black.jpg"
+        "killian_back_to_black.jpg"
       )
     ),
     array(
@@ -89,7 +89,7 @@
       "bărbați",
       100,
       array(
-        "killian/killian_good_girl_gone_bad.jpg"
+        "killian_good_girl_gone_bad.jpg"
       )
     ),
     array(
@@ -100,9 +100,9 @@
       "femei",
       100,
       array(
-        "memo_paris/memo_paris_scilian_leather_0.jpg",
-        "memo_paris/memo_paris_scilian_leather_1.jpg",
-        "memo_paris/memo_paris_scilian_leather_2.jpg"
+        "memo_paris_scilian_leather_0.jpg",
+        "memo_paris_scilian_leather_1.jpg",
+        "memo_paris_scilian_leather_2.jpg"
       )
     ),
     array(
@@ -113,9 +113,9 @@
       "femei",
       100,
       array(
-        "memo_paris/memo_paris_tigers_nest_0.jpg",
-        "memo_paris/memo_paris_tigers_nest_1.jpg",
-        "memo_paris/memo_paris_tigers_nest_2.jpg"
+        "mmemo_paris_tigers_nest_0.jpg",
+        "memo_paris_tigers_nest_1.jpg",
+        "memo_paris_tigers_nest_2.jpg"
       )
     ),
     array(
@@ -126,9 +126,9 @@
       "bărbați",
       100,
       array(
-        "memo_paris/memo_paris_flam_0.jpg",
-        "memo_paris/memo_paris_flam_1.jpg",
-        "memo_paris/memo_paris_flam_2.jpg"
+        "memo_paris_flam_0.jpg",
+        "memo_paris_flam_1.jpg",
+        "memo_paris_flam_2.jpg"
       )
     ),
   );
