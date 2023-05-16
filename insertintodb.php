@@ -46,7 +46,7 @@
           <label>Pret<label>
             <input type="number" name="pret" required placeholder="Pret"> <br>
 
-          <label >Sex</label>
+          <label for ="pentru">Sex</label>
             <select name="pentru" >
               <option value="femei">Femei</option>
               <option value="bărbați">Bărbați</option>
@@ -56,8 +56,8 @@
 
 
 
-          <p><label for="w3review">Descriere:</label></p>
-          <textarea  name="w3review" rows="20" cols="50"></textarea><br>
+          <p><label for="descriere">Descriere:</label></p>
+          <textarea  name="descriere" rows="20" cols="50"></textarea><br>
 
           <label for="files">Select files:</label>
             <input type="file" id="files" name="Pictures" multiple><br><br>
@@ -74,8 +74,12 @@
 
           require_once("./db_config.php");
 
-          $email=$_POST['name'];
-          $parola=$_POST['password'];
+          $nume=$_POST['name'];
+          $brand=$_POST['brand'];
+          $cantitate=$_POST['cantitate'];
+          $pentru=$_POST['pentru'];
+          $descriere=$_POST['descriere'];
+          
 
           $conn = new PDO("mysql:host=$servername;", $username, $password);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
