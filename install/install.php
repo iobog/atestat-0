@@ -113,7 +113,7 @@
       "femei",
       100,
       array(
-        "mmemo_paris_tigers_nest_0.jpg",
+        "memo_paris_tigers_nest_0.jpg",
         "memo_paris_tigers_nest_1.jpg",
         "memo_paris_tigers_nest_2.jpg"
       )
