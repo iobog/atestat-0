@@ -40,27 +40,40 @@ if (isset($_POST["login"]))
   {
     $message = "Nepermis! Date invalide";
   }
-  else
-  {
-    $message = "Succes!";
+  else {
+    if($user=="admin@admin.com" and $password=="admin"){
 
-    session_unset();
-    session_destroy();
-    session_start();
-
-    $_SESSION["user_id"] = $user["id"];
-    $_SESSION["username"] = $user["username"];
-
-    if (isset($_GET["add_product"]))
-    {
-      $product_id = $_GET["add_product"];
-      header("Location: product.php?id=$product_id&action=add");
+  
+      session_unset();
+      session_destroy();
+      session_start();
+  
+      $_SESSION["user_id"] = $user["id"];
+      $_SESSION["username"] = $user["username"];
+      header("Location: insertintodb.php");
     }
     else
     {
-      header("Location: index.php");
+      $message = "Succes!";
+  
+      session_unset();
+      session_destroy();
+      session_start();
+  
+      $_SESSION["user_id"] = $user["id"];
+      $_SESSION["username"] = $user["username"];
+  
+      if (isset($_GET["add_product"]))
+      {
+        $product_id = $_GET["add_product"];
+        header("Location: product.php?id=$product_id&action=add");
+      }
+      else
+      {
+        header("Location: index.php");
+      }
+  
     }
-
   }
 }
 

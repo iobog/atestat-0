@@ -41,8 +41,11 @@
           <p><label for="brand">Brand</label></p>
             <input type="text" name="brand" required placeholder="Brand"><br>
 
-          <p><label for="cantitate">Cantiatte</label></p>
-            <input type="number" name="cantiatte" required placeholder="Cantiatte"><br>
+        
+            <p><label for="cantitate">Cantitate</label></p>
+            <select name="cantitate" >
+              <option value="100">100</option>
+            </select>
 
           <p><label for="pret">Pret</label></p>
             <input type="number" name="pret" required placeholder="Pret"> <br>
@@ -58,67 +61,99 @@
 
           <p><label for="descriere">Descriere:</label></p>
           <textarea  name="descriere" rows="20" cols="50"></textarea><br>
+          <input class ="autentificare-buton" type="submit" name="button-product-informations"value="Inserare produs">
 
-          <label for="files">Select files:</label>
-            <input type="file"name="imagini_produs[]" multiple><br>
+        </form>
 
-          <input class ="autentificare-buton" type="submit" name="button"value="Inserare">
+
+        <form action="insertintodb.php" method="post" enctype="multipart/form-data">
+
+            <label for="files">Select files:</label>
+
+            <input type="file" id="files" name="Pictures[]" multiple>
+
+            <input class ="autentificare-buton" type="submit" name="button-product-imagine"value="Inserare imagine produs">
 
         </form>
 
       </div>
     </div>
-    <?php  
-       if(isset($_POST["button"]))
+    <?php
+      require_once("./db_config.php");
+
+      $conn = new PDO("mysql:host=$servername;", $username, $password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+      $conn->exec("USE $database");
+
+       if(isset($_POST["button-product-informations"]))
        {
-
-          require_once("./db_config.php");
-
           $nume=$_POST['name'];
           $brand=$_POST['brand'];
+          $pret=$_POST['pret'];
           $cantitate=$_POST['cantitate'];
           $pentru=$_POST['pentru'];
           $descriere=$_POST['descriere'];
-          
 
-          $conn = new PDO("mysql:host=$servername;", $username, $password);
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  
-          $conn->exec("USE $database");
-          $smt = $conn->prepare("SELECT COUNT(*) from $user_table_name where username = :name");
-          $smt->bindParam(":name", $email);
+          $smt = $conn->prepare("SELECT COUNT(*) from $product_table_name where nume = :name");
+          $smt->bindParam(":name", $nume);
           $smt->execute();
           $count = $smt->fetchColumn();
-          if($count==0)
-          {
-            $user_table_querry = "
-              INSERT INTO $user_table_name (username, password)
-              VALUES (:email, :parola)
+      
+          if ($count == 0) {
+            // Note: Create the product.
+            $create_product_query = "
+              INSERT INTO $product_table_name (nume, pret, descriere, brand, pentru, cantitate)
+              VALUES (:name, :price, :description, :brand, :pentru, :cantitate)
             ";
-            $smt = $conn->prepare($user_table_querry);
-            $smt->bindParam(':email', $email);
-            $smt->bindParam(':parola', $parola);
+            $smt = $conn->prepare($create_product_query);
+            $smt->bindParam(':name', $nume);
+            $smt->bindParam(':price', $pret);
+            $smt->bindParam(':description', $descriere);
+            $smt->bindParam(':brand', $brand);
+            $smt->bindParam(':pentru', $pentru);
+            $smt->bindParam(':cantitate', $cantitate);
             $smt->execute();
+      
+            // Note: Get the product ID of the inserted product
+            $last_product_id = $conn->lastInsertId();
+            
+            ?><script type="text/javascript">
+								alert("Ati introdus cu succes produsul <br> Acum intorduceti imaginilie!");
+ 				      </script>
+             <?php 
 
-            ?>
-            <script>
-              history.go(-2);
-            </script>
-
-            <?php            
-            exit();
-
+            if(isset($_FILES['produse']['name']) && !empty($_FILES['produse']['name'])) {
+              $numeFisiere = $_FILES['produse']['name'];
+              // Note: Create the product images.   
+              foreach($numeFisiere as $picture) {
+                echo" $picture <br>";
+                $smt = $conn->prepare("SELECT COUNT(*) from $product_table_name where url = :name");
+                $smt->bindParam(":name", $picture);
+                $smt->execute();
+                $count = $smt->fetchColumn();
+                if($count==0){
+                  $create_product_image_query = "
+                    INSERT INTO $product_image_table_name (produs_id, url)
+                    VALUES (:product_id, :url)
+                  ";
+                  $smt = $conn->prepare($create_product_image_query);
+                  $smt->bindParam(':product_id', $last_product_id);
+                  $smt->bindParam(':url', $picture );
+                  $smt->execute();
+                }
+              }
+            }
+          }
+          
           } 
            else{  ?>
-            <script type="text/javascript">
-              history.go(-1);
-              alert("Email deja folosi");
-            </script>
+    
             
           <?php
           }
 
-       }
+       
     ?>
 
   </body>
