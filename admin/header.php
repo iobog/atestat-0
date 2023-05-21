@@ -8,7 +8,7 @@ if (isset($_SESSION["user_id"])) {
 
 <div class="header">
   <div class="header-content">
-    <a class="header-logo" href="index.php">Admin</a>
+    <a class="header-logo" href="index.php">Administrator</a>
     <div class="header-menu">
       <a href="../index.php?" target="_blank">Magazin</a>
       <a href="index.php?">Produse</a>

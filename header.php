@@ -16,7 +16,7 @@ $total = round($total, 2);
 
 <div class="header">
   <div class="header-content">
-    <a class="header-logo" href="index.php">Magazinul</a>
+    <a class="header-logo" href="index.php">Fragrance</a>
     <div class="header-menu">
       <a href="index.php?">Toate</a>
       <a href="index.php?gen=barbati">Pentru barbati</a>
