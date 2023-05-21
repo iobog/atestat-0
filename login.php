@@ -1,6 +1,29 @@
-<?php
-session_start();
+<html>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/cart.css">
+  <link rel="stylesheet" type="text/css" href="css/input.css">
+  <link rel="stylesheet" type="text/css" href="css/page.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+  <script src="https://kit.fontawesome.com/401ef7ae9e.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <?php
+    session_start();
+    require_once('./header.php');
+  ?>
+
+<?php
 require_once("./db_config.php");
 
 $conn = new PDO("mysql:host=$servername;", $username, $password);
@@ -8,103 +31,90 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $conn->exec("USE $database");
 
-//var_dump($_POST);
+$message = NULL;
 
-$message = null;
+require_once('./user_logic.php');
 
-if (isset($_POST["login"])) 
+if (isset($_POST['user']) && isset($_POST['pass']))
 {
-  $username = $_POST["email"];
-  $password = $_POST["password"];
+  $user = $_POST['user'];
+  $pass = $_POST['pass'];
 
-  // var_dump($_POST);
-  // echo "<br>";
+  $account = get_user_by_email_and_pass($user, $pass);
 
-  $smt = $conn->prepare("SELECT * FROM $user_table_name WHERE username = ?");
-  $smt->execute([$username]);
-  $user = $smt->fetch();
-  //var_dump($user);
-
-  // echo "<br>";
-  // echo "pass: ".$user["password"];
-  // echo "<br>";
-  // echo "hash: ".password_hash($password, PASSWORD_DEFAULT);
-  // echo "<br>";
-
-  // var_dump(password_verify($password, $user["password"]));
-
-  // echo "<br>";
-
-  //if ($user === false || password_hash($password, PASSWORD_DEFAULT) != $user["password"])
-  if ($user === false || $password != $user["password"])
+  if ($account === false)
   {
-    $message = "Nepermis! Date invalide";
+    $message = "<div><b>Eroare:</b> Date invalide!</div>";
   }
-  else {
-    if($user=="admin@admin.com" and $password=="admin"){
+  else
+  {
+    session_unset();
+    session_destroy();
+    session_start();
 
-  
-      session_unset();
-      session_destroy();
-      session_start();
-  
-      $_SESSION["user_id"] = $user["id"];
-      $_SESSION["username"] = $user["username"];
-      header("Location: insertintodb.php");
-    }
-    else
+    $_SESSION['user_id'] = $account['id'];
+    $_SESSION['username'] = $account['username'];
+    $_SESSION['rol'] = $account['rol'];
+    
+    if (isset($_GET['return']))
     {
-      $message = "Succes!";
-  
-      session_unset();
-      session_destroy();
-      session_start();
-  
-      $_SESSION["user_id"] = $user["id"];
-      $_SESSION["username"] = $user["username"];
-  
-      if (isset($_GET["add_product"]))
-      {
-        $product_id = $_GET["add_product"];
-        header("Location: product.php?id=$product_id&action=add");
-      }
-      else
-      {
-        header("Location: index.php");
-      }
-  
+      $return_url = urldecode($_GET['return']);
+      header("Location: $return_url");
+      exit();
     }
+
+    header("Location: index.php");
+    exit();
   }
 }
 
-$action_url = "login.php?".http_build_query($_GET);
-//echo $action_url;
+$login_url = 'login.php?'.http_build_query($_GET);
+$register_url = 'register.php?'.http_build_query($_GET);
+
 ?>
 
-<?php if ($message != null): ?>
-  <div>
-    <?php echo $message; ?>
+
+  <div class="page-title">Autentificare</div>
+  <div class="page-main">
+    <?php if ($message != null): ?>
+      <div class="alert">
+        <?php echo $message; ?>
+      </div>
+      <br>
+    <?php endif; ?>
+
+    <form action="<?php echo $login_url; ?>" method="post">
+
+      <div class="form-field">
+        <label for="user">Email</label>
+        <input type="text" name="user" placeholder="Email" required>
+      </div>
+
+      <div class="form-field">
+        <label for="pass">Parola</label>
+        <input type="password" name="pass" placeholder="Parola" required>
+      </div>
+
+      <br>
+
+      <button 
+        type="submit" 
+        name="login"
+        value="">
+        Autentificare
+      </button>
+
+    </form>
+    <br>
+    <p>
+      Nu aveți încă cont? <a href="<?php echo $register_url; ?>">Înregistrare</a>
+    </p>
+
   </div>
-<?php endif; ?>
 
-<link rel="stylesheet" type="text/css" href="css/loginpagestyle.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
 
-<div class="container-all-login-register">
-      <h1 class="conectare-title">Conectare</h1>
+</body>
 
-      <form action="<?php echo $action_url; ?>" method="post">
-          
-        <div class="email">E-mail</div><br>
-        <input type="email" name="email" required placeholder="Introduceti e-mail">
+</html>
 
-        <div class="parola-container">
-          <div class="parola">Parolă</div><br>
-          <input type="password" name="password"  required placeholder="Introduceti parola">
-        </div><br>
-        <input class ="autentificare-buton" type="submit" name="login" value="Autentificare">
 
-      </form>
-      <div class="footer-registration-wrapper">Nu aveți cont?  <a class="autentificare-link" href="register.php"> Inregistrare</a></div>
-
-</div>

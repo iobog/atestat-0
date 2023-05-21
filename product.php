@@ -83,35 +83,32 @@
           <div class="product-name">
             <?php echo $product["nume"]?>
           </div>
-          <div class="product-pentru"> 
-          Parfum pentru <?php echo $product["pentru"]?>
-         </div>
-
-          <div class="product-cantitate-and-price">
-            <div class="product-cantitate"> 
-              <?php echo $product["cantitate"]?> ml
-            </div>
-
-            <div class="product-price"> 
+          <div class="product-size">
+            Potrivit <?php echo $product["gen"]?>
+            <?php echo $product["marime"]?> ml
+          </div>
+          <div class="product-price">
             <?php echo round($product["pret"], 2)?> lei
-            </div>
           </div>
-          <form action="" method="POST">
-            <button 
-              class="add-to-cart-button"
-              type="submit" 
-              name="add_to_cart"
-              value="<?php echo $product_id ?>">
-              Adaugă în coș
-            </button>
-          </form>
-        </div>
 
-        <div class="description">
-          <p class="descriere-titlu"> Descriere <?php echo $product["brand"] ?> <?php echo $product["nume"] ?></p>
-          <div class="product-description"> 
-            <?php echo $product["descriere"]?>
-          </div>
+          <?php if ($product["stoc"] > 0): ?>
+            <form action="" method="POST">
+              <button 
+                class="add-to-cart-button"
+                type="submit" 
+                name="add_to_cart"
+                value="<?php echo $product_id ?>">
+                Adaugă în coș
+              </button>
+            </form>
+          <?php else: ?>
+            <button
+              disabled="true"
+              class="add-to-cart-button">
+              Stoc epuizat
+            </button>
+          <?php endif; ?>
+
         </div>
       
       </div>
@@ -123,16 +120,19 @@
       {
         if (!isset($_SESSION["user_id"]))
         {
-          header("Location: login.php?add_product=$product_id");
+          $return_url = urlencode("product.php?id=$product_id&action=add");
+          header("Location: login.php?return=$return_url");
         }
         
         $user_id = $_SESSION["user_id"];
         add_to_cart($user_id, $product);
 
+        header("Location: cart.php");
+
         // Note: Refresh the page
         // in order to see the new 
         // total.
-        header("Location: product.php?id=$product_id");
+        //header("Location: product.php?id=$product_id");
       }
 
     ?>

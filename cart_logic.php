@@ -44,12 +44,6 @@ function get_cart($user_id)
   return $cart;
 }
 
-// function get_cart_total($user_id)
-// {
-//   $cart = get_cart($user_id);
-//   return $cart["total"];
-// }
-
 function update_cart_total($user_id)
 {
   global $conn;
@@ -152,11 +146,11 @@ function get_cart_items($cart_id)
   global $conn;
   global $cart_item_table_name;
   global $product_table_name;
-  global $product_image_table_name;
 
   $get_cart_items_query = "
     SELECT 
       $cart_item_table_name.id as cos_element_id,
+      $product_table_name.id as produs_id,
       $cart_item_table_name.*,
       $product_table_name.*
     FROM $cart_item_table_name
@@ -168,9 +162,25 @@ function get_cart_items($cart_id)
   $smt->execute([$cart_id]);
   $cart_items = $smt->fetchAll();
 
-  // echo "<pre>";
-  // var_dump($cart_items);
-  // echo "</pre>";
-
   return $cart_items;
+}
+
+function get_cart_item_image($cart_item_id)
+{
+  global $conn;
+  global $cart_item_table_name;
+  global $product_image_table_name;
+
+  $query = "
+    SELECT * FROM $product_image_table_name 
+    INNER JOIN $cart_item_table_name
+    ON $product_image_table_name.produs_id = $cart_item_table_name.produs_id
+    WHERE $cart_item_table_name.id = ?
+  ";
+
+  $smt = $conn->prepare($query);
+  $smt->execute([$cart_item_id]);
+  $image = $smt->fetch();
+
+  return $image["url"];
 }

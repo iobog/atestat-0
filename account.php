@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <link rel="stylesheet" type="text/css" href="css/product.css">
-  <link rel="stylesheet" href="css/loginpagestyle.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="css/input.css">
+  <link rel="stylesheet" type="text/css" href="css/page.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,17 +41,18 @@
 
   ?>
 
-<div class ="container-all-login-register">
-  <form action="" method="POST">
-    <button class="autentificare-buton" 
-      type="submit" 
-      name="logout">
-      Deconectare
-    </button>
-  </form>
-</div>
-  
-
+  <div class="page-title">
+    <?php echo "Salut, ".$_SESSION["username"]."!"; ?>
+  </div>
+  <div class="page-main">
+    <form action="" method="POST">
+      <button 
+        type="submit" 
+        name="logout">
+        Deconectare
+      </button>
+    </form>
+  </div>
 
 </body>
 

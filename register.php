@@ -1,99 +1,125 @@
-
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="css/loginpagestyle.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
-        <link rel="stylesheet" href="css/loginpagestyle.css" type="text/css">
-      <script src="https://kit.fontawesome.com/401ef7ae9e.js" crossorigin="anonymous"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/cart.css">
+  <link rel="stylesheet" type="text/css" href="css/input.css">
+  <link rel="stylesheet" type="text/css" href="css/page.css">
 
-  </head>
-  <body>
-    <!-- header and navigation -->
-    <
-    <div class="container-all-login-register">
-      <h1 class="conectare-title">Înregistrare</h1> 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
-      <div class="container-all-items">
-        
-        <form action="register.php" method="post">
-          
-            <div class="email">E-mail</div><br>
-            <input type="email" name="email" required placeholder="Introduceti e-mail">
+  <script src="https://kit.fontawesome.com/401ef7ae9e.js" crossorigin="anonymous"></script>
 
-          <div class="parola-container">
-            <div class="parola">Parolă</div><br>
+</head>
 
-            <input type="password" name="password"  required placeholder="Introduceti parola">
+<body>
 
-          </div><br>
-          <div class="termeni-si-conditii">
-            Declar că am luat cunoștință de  Principiile prelucrării datelor cu caracter personal și de <a class="linker" href="termeni_si_conditii.html">termeni și condiții</a>, așadar doresc să mă înregistrez.
-          </div>
-            <input class ="autentificare-buton" type="submit" name="button"value="Inregistrare">
+  <?php
+    session_start();
+    require_once('./header.php');
+  ?>
 
-        </form>
+<?php
+require_once("./db_config.php");
 
+
+$conn = new PDO("mysql:host=$servername;", $username, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$conn->exec("USE $database");
+
+require_once('./user_logic.php');
+
+$message = NULL;
+
+if (isset($_POST['user']) && isset($_POST['pass']))
+{
+  $user = $_POST['user'];
+  $pass = $_POST['pass'];
+
+  $account = get_user_by_email($user);
+
+  if ($account !== false)
+  {
+    $message = "<div><b>Eroare: </b>Exista deja un cont pentru ".$user."</div>";
+  }
+  else
+  {
+    $user_id = create_user($user, $pass);
+
+    $account = get_user_by_id($user_id);
+
+    session_unset();
+    session_destroy();
+    session_start();
+
+    $_SESSION['user_id'] = $account['id'];
+    $_SESSION['username'] = $account['username'];
+    $_SESSION['rol'] = $account['rol'];
+
+    if (isset($_GET['return']))
+    {
+      $return_url = urldecode($_GET['return']);
+      header("Location: $return_url");
+      exit();
+    }
+
+    header("Location: index.php");
+    exit();    
+  }
+}
+
+$login_url = 'login.php?'.http_build_query($_GET);
+$register_url = 'register.php?'.http_build_query($_GET);
+
+?>
+
+
+  <div class="page-title">Înregistrare</div>
+  <div class="page-main">
+    <?php if ($message != null): ?>
+      <div class="alert">
+        <?php echo $message; ?>
       </div>
-    </div>
-    <?php  
-       if(isset($_POST["button"]))
-       {
+			<br>
+    <?php endif; ?>
 
-          require_once("./db_config.php");
+    <form action="<?php echo $register_url; ?>" method="post">
 
-          $email=$_POST['email'];
-          $parola=$_POST['password'];
+      <div class="form-field">
+        <label for="user">Email</label>
+        <input type="text" name="user" placeholder="Email" required>
+      </div>
 
-          $conn = new PDO("mysql:host=$servername;", $username, $password);
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  
-          $conn->exec("USE $database");
-          $smt = $conn->prepare("SELECT COUNT(*) from $user_table_name where username = :name");
-          $smt->bindParam(":name", $email);
-          $smt->execute();
-          $count = $smt->fetchColumn();
-          if($count==0)
-          {
-            $user_table_querry = "
-              INSERT INTO $user_table_name (username, password)
-              VALUES (:email, :parola)
-            ";
-            $smt = $conn->prepare($user_table_querry);
-            $smt->bindParam(':email', $email);
-            $smt->bindParam(':parola', $parola);
-            $smt->execute();
+      <div class="form-field">
+        <label for="pass">Parola</label>
+        <input type="password" name="pass" placeholder="Parola" required>
+      </div>
 
-            ?>
-            <script>
-              history.go(-2);
-            </script>
-            <?php            
-            exit();
+      <br>
 
-          } 
-           else{  ?>
-           
-            <script type="text/javascript">
-              alert("Email deja folosi");
-            </script>
-            sleep(2000);
-            <script type="text/javascript">
-              history.go(-1);
-            </script>
-            
-          <?php
-          }
+      <button 
+        type="submit" 
+        name="register"
+        value="">
+        Înregistrare
+      </button>
 
-       }
-    ?>
+    </form>
+    <br>
+    <p>
+			Aveți deja un cont? <a href="<?php echo $login_url; ?>">Autentificare</a>
+    </p>
 
-  </body>
+  </div>
+
+
+</body>
+
 </html>
+
+

@@ -25,6 +25,21 @@
 
     <div class="breadcrumb-container">
       <a href="index.php" class="breadcrumb-element">Produse</a>
+      <div class="breadcrumb-separator">/</div>
+
+      <?php if (isset($_GET['gen'])): ?>
+        <?php
+          $text = '--';
+          if ($_GET['gen'] == 'barbati') $text = "Pentru barbati";
+          if ($_GET['gen'] == 'femei') $text = "Pentru femei";
+          if ($_GET['gen'] == 'unisex') $text = "Unisex";
+        ?>
+        <a 
+          href="index.php?gen=<?php echo $_GET['gen']; ?>" 
+          class="breadcrumb-element">
+          <?php echo $text; ?>
+        </a>
+      <?php endif; ?>
     </div>
 
     <div class="product-card-container">
@@ -37,10 +52,12 @@
 
         $conn->exec("USE $database");
 
+        $query = isset($_GET['gen']) ? "SELECT * FROM $product_table_name WHERE gen = ?" : "SELECT * FROM $product_table_name";
+        $params = isset($_GET['gen']) ? [$_GET['gen']] : [];
+
         // Note: select all products.
-        $select_products_query = "SELECT * FROM $product_table_name";
-        $smt = $conn->prepare($select_products_query);
-        $smt->execute();
+        $smt = $conn->prepare($query);
+        $smt->execute($params);
         $products = $smt->fetchAll();
 
         ?>
@@ -58,6 +75,11 @@
           ?>
 
           <a class="product-card" href="./product.php?id=<?php echo $product["id"] ?>">
+            <?php if ($product["stoc"] == 0): ?>
+              <div class="product-card-label">
+                Stoc epuizat
+              </div>
+            <?php endif ?>
             <div class="product-card-image">
               <img
                 src="./media/produse/<?php echo $images[0]["url"]?>" 
@@ -77,41 +99,6 @@
           
         <?php endforeach ?>
 
-        <!-- <?php
-
-        // foreach ($products as $product) {
-
-        //   // Note: select product images.
-        //   $select_product_images_query = "
-        //     SELECT * FROM $product_image_table_name
-        //     WHERE produs_id = ?
-        //   ";
-
-        //   $smt = $conn->prepare($select_product_images_query);
-        //   $smt->execute([$product["id"]]);
-        //   $images = $smt->fetchAll();
-          
-          
-        //   // echo "
-        //   //   <div class=\"product-card\">
-        //   //     <div>
-        //   //       <img 
-        //   //         class=\"product-card-image\"
-        //   //         src=\"./media/produse/".$images[0]['url']."\">
-        //   //     </div>
-        //   //     <div class=\"product-card-brand\">"
-        //   //       .$product['brand'].
-        //   //     "</div>
-        //   //     <div class=\"product-card-name\">"
-        //   //       .$product['nume'].
-        //   //     "</div>
-        //   //     <div class=\"product-card-price\">"
-        //   //       .round($product['pret'], 2)." lei
-        //   //     </div>
-        //   //   </div>
-        //   // ";
-        // }
-        ?> -->
     </div>
 
   </body>
