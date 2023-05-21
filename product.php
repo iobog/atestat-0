@@ -90,6 +90,12 @@
           <div class="product-price">
             <?php echo round($product["pret"], 2)?> lei
           </div>
+          <div class="description">
+          <p class="descriere-titlu"> Descriere <?php echo $product["brand"] ?> <?php echo $product["nume"] ?></p>
+          <div class="product-description"> 
+            <?php echo $product["descriere"]?>
+          </div>
+        </div>
 
           <?php if ($product["stoc"] > 0): ?>
             <form action="" method="POST">

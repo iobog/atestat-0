@@ -75,3 +75,33 @@
 .add-to-cart-button:not(:disabled):active {
   background-color: rgba(0, 0, 0, 1);
 }
+
+
+
+.description{
+  position: sticky;
+  top: calc(60px + 40px);
+  height: fit-content;
+  margin-top: 70px;
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+  letter-spacing: .3px;
+  margin-bottom: 30px;
+}
+
+.descriere-titlu{
+  width: 400px;
+  font-size: 18px;
+  letter-spacing: 0.5;
+  font-weight: 300;
+  padding-top: 20px;
+}
+
+.product-description{
+  width: 400px;
+  padding-top: 20px;
+  font-size: 15px;
+  letter-spacing: 0.4;
+  font-weight: 300;
+}
