@@ -55,7 +55,11 @@ if (isset($_POST['user']) && isset($_POST['pass']))
     $_SESSION['user_id'] = $account['id'];
     $_SESSION['username'] = $account['username'];
     $_SESSION['rol'] = $account['rol'];
-    
+    if($account['rol']=='admin')
+    {
+      header("Location:./admin/index.php");
+      exit();
+    }
     if (isset($_GET['return']))
     {
       $return_url = urldecode($_GET['return']);

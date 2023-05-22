@@ -76,12 +76,7 @@
   <div class="page-title">Produs nou</div>
   <div class="page-main">
 
-    <?php if(!empty($MESSAGE)): ?>
-      <div class="alert">
-        <?php echo $MESSAGE; ?>
-      </div>
-      <br>
-    <?php endif; ?>
+    
     
     <form action="" method="post" enctype="multipart/form-data">
       <div class="form-field">

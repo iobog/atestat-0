@@ -14,7 +14,7 @@ if (isset($_SESSION["user_id"])) {
       <a href="index.php?">Produse</a>
     </div>
   </div>
-  <a class="header-link" href="account.php">
+  <a class="header-link" href="../account.php">
     <i class="fa-solid fa-user"></i>
     <?php echo $user; ?>
   </a>

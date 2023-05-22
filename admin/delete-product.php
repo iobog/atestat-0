@@ -16,8 +16,6 @@
 
   require_once('../product_logic.php');
 
-
-
   ?>
 
 <html>
@@ -76,14 +74,28 @@
     if (isset($_POST['delete'])){
       $pour_id = $_POST['ELiminaT'];
       
+     
+
+      $query = "
+        SELECT * FROM $cart_item_table_name where produs_id = $pour_id
+      ";
+      $smt = $conn->prepare($query);
+      $smt->execute();
+      if ($smt->rowCount() > 0){
+        echo("<div class=\"alert\" > 
+        Produsul este existet în cosul unuli client!!! Modificati stocul sa fie 0.
+      </div>");
+      exit();
+      }
       $querry_delete="DELETE FROM $product_image_table_name WHERE produs_id=$pour_id";
       $smt=$conn->prepare($querry_delete);
       $smt->execute();
+      // trebuie sa i dau delete daca exista si din baaza de date cos_elemetn
       $querry_delete="DELETE FROM $product_table_name WHERE id=$pour_id";
       $smt=$conn->prepare($querry_delete);
       $smt->execute();
       echo("<div class=\"alert\" > 
-        Produsul a fost eliminat!!!!!!!!
+        Produsul a fost eliminat!!
       </div>");
     }
   ?>
