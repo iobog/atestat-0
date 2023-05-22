@@ -92,7 +92,7 @@
 
       <div class="form-field">
         <label for="description">Descriere</label>
-        <textarea name="description" rows="3" placeholder="Descriere"></textarea>
+        <textarea name="description" rows="3" placeholder="Descriere" required></textarea>
       </div>
       <br>
 

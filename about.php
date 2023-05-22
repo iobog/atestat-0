@@ -29,7 +29,7 @@
 
   <div class="all">
     <div class="imagine-dreapta">
-      <img src="contactimage.jpg">
+      <img src="ioanbogdan.jpg">
     </div>
     <div class="container">
       <h2>CONTACTEAZĂ-NE</h2>
@@ -48,7 +48,6 @@
       <div class="container-contact-informations">
         <h5>INFORMAȚII COMPANIE</h5>
         <p class="content">
-          SC FREGRANCE SRL <BR>
           Str. Botești Nr. 45A, Cîmpeni, Alba
         </p>
         

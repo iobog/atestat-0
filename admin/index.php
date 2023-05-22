@@ -46,6 +46,7 @@
   <div class="page-title">Produse</div>
   <div class="page-actions">
     <a class="button-primary" href="create-product.php">+ Produs nou</a>
+    <a class="button-primary" href="delete-product.php">- Elimina produs</a>
   </div>
 
   <div class="page-main">
